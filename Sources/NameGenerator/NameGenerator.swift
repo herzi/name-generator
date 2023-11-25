@@ -6,6 +6,8 @@
 //
 
 public struct NameGenerator {
+    public init () {}
+    
     private func candidate () -> (adjective: Adjective, person: Person) {
         (Adjective.random(), Person.random())
     }

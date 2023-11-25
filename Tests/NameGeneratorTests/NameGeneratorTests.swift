@@ -1,12 +1,35 @@
+//
+//  NameGenerator.swift
+//  name-generator
+//
+//  Created by Sven Herzberg on 2023-11-25.
+//
+
 import XCTest
-@testable import NameGenerator
+
+import NameGenerator
 
 final class NameGeneratorTests: XCTestCase {
-    func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
+    func testNameFormat () {
+        // Arrange:
+        let sut = NameGenerator()
+        let permitted = CharacterSet(charactersIn: "a" ... "z")
+            .union(.init(charactersIn: "A" ... "Z"))
+            .union(.init(charactersIn: "_"))
+        
+        for _ in 1 ... 100 {
+            // Act:
+            let name = sut.generateName()
+            
+            // Assert:
+            XCTAssert(name.contains("_"), name)
+            XCTAssert(name.allSatisfy { $0.unicodeScalars.allSatisfy(permitted.contains(_:)) })
+        }
+    }
+}
 
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
+extension String {
+    func contains (_ character: Character) -> Bool {
+        contains { $0 == character }
     }
 }
