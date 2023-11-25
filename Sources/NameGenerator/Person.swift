@@ -18,6 +18,12 @@ extension Person: CustomStringConvertible {
     }
 }
 
+extension Person: Equatable {
+    static func == (left: Self, right: Self) -> Bool {
+        left.rawValue.description == right.rawValue.description
+    }
+}
+
 extension Person: ExpressibleByStringLiteral {
     init(stringLiteral value: StaticString) {
         self.init(rawValue: value)
@@ -737,4 +743,11 @@ extension Person: CaseIterable {
         // Nikolay Yegorovich Zhukovsky (Russian: Никола́й Его́рович Жуко́вский, January 17 1847 – March 17, 1921) was a Russian scientist, mathematician and engineer, and a founding father of modern aero- and hydrodynamics. Whereas contemporary scientists scoffed at the idea of human flight, Zhukovsky was the first to undertake the study of airflow. He is often called the Father of Russian Aviation. https://en.wikipedia.org/wiki/Nikolay_Yegorovich_Zhukovsky
         "zhukovsky",
     ]
+}
+
+extension Person {
+    static func random () -> Person {
+        let elements = allCases
+        return elements[Int.random(in: elements.startIndex ..< elements.endIndex)]
+    }
 }

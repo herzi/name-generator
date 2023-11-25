@@ -17,6 +17,12 @@ extension Adjective: CustomStringConvertible {
     }
 }
 
+extension Adjective: Equatable {
+    static func == (left: Self, right: Self) -> Bool {
+        left.rawValue.description == right.rawValue.description
+    }
+}
+
 extension Adjective: ExpressibleByStringLiteral {
     init(stringLiteral value: StaticString) {
         self.init(rawValue: value)
@@ -134,4 +140,11 @@ extension Adjective: CaseIterable {
         "zealous",
         "zen",
     ]
+}
+
+extension Adjective {
+    static func random () -> Adjective {
+        let elements = allCases
+        return elements[Int.random(in: elements.startIndex ..< elements.endIndex)]
+    }
 }
